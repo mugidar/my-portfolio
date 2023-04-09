@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import MapChart from "./MapChart";
+import emailjs from "@emailjs/browser"
 
 const Section = styled.div`
   height: 100vh;
@@ -65,17 +66,33 @@ const Button = styled.button`
   text-transform: uppercase;
 `;
 
+
 const Contact = () => {
+  const form = useRef();
+  
+  const handleSubmit = (e ) => {
+  e.preventDefault()
+  console.log(form)
+  emailjs.sendForm('service_bzvzlng', 'template_k8xpaoy', form.current, '8pvC3ZjtVeV7RqP0r')
+  .then((result) => {
+      console.log(result.text);
+  }, (error) => {
+      console.log(error.text);
+  });
+  
+  }
+  
+
   return (
     <Section id="contact">
       <Container>
         <Left>
-          <Form>
+          <Form ref={form}  onSubmit={handleSubmit}>
             <Title>Contact Us</Title>
-            <Input placeholder="Name" />
-            <Input placeholder="Email" />
-            <TextArea rows={10} placeholder="Your message" />
-            <Button>Send</Button>
+            <Input placeholder="Name" name="name"/>
+            <Input placeholder="Email" name="email"/>
+            <TextArea rows={10} placeholder="Your message" name="message" />
+            <Button type="submit">Send</Button>
           </Form>
         </Left>
         <Right>

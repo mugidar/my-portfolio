@@ -1,47 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import WebDesign from "./WebDesign";
+import Development from "./Development";
+import Social from "./Social";
 
-const data = [
-  "Web Design",
-  "Development",
-  "Illustration",
-  "Product Design",
-  "Social Media"
-];
+const data = ["Web Design", "Development", "Social Media"];
 
 const Section = styled.div`
   height: 100vh;
   scroll-snap-align: center;
   display: flex;
   justify-content: center;
+  position: relative;
+  color: black;
+  font-size: 14px;
+  font-weight: 300;
 `;
+
 const Container = styled.div`
   width: 1400px;
-  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+  }
+`;
+
+const Left = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin: 0 15px;
-  margin: 0 auto;
+  @media only screen and (max-width: 768px) {
+    padding: 20px;
+    justify-content: center;
+  }
 `;
-const Left = styled.div`
-  position: relative;
-  flex: 1;
-`;
-const Right = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 15px;
-  color: white;
-`;
+
 const List = styled.ul`
+  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
+
+
 const ListItem = styled.li`
   cursor: pointer;
   -webkit-text-stroke: 1px white;
@@ -81,20 +84,45 @@ const ListItem = styled.li`
   }
 `;
 
+const Right = styled.div`
+  display: flex;
+  
+  flex: 1;
+`;
 const Works = () => {
+  const [work, setWork] = useState("Web Design");
+
+  const renderChosenWork = () => {
+    switch (work) {
+      case "Web Design":
+        return <WebDesign />;
+      case "Development":
+        return <Development />;
+      case "Social Media":
+        return <Social />;
+
+      default:
+        return <WebDesign />;
+    }
+  };
+
   return (
     <Section id="works">
       <Container>
         <Left>
           <List>
             {data.map((listItem) => (
-              <ListItem listItem={listItem} key={listItem}>
+              <ListItem
+                onClick={() => setWork(listItem)}
+                listItem={listItem}
+                key={listItem}
+              >
                 {listItem}
               </ListItem>
             ))}
           </List>
         </Left>
-        <Right>{/* 3d model */}</Right>
+        <Right>{renderChosenWork()}</Right>
       </Container>
     </Section>
   );

@@ -13,14 +13,15 @@ const MapChart = () => {
       projection="geoAzimuthalEqualArea"
       projectionConfig={{
         rotate: [-10.0, -52.0, 0],
-        center: [-5, -3],
-        scale: 1100
+        center: [15, -4],
+        scale: 1500
       }}
+      style={{ width: "70%", height: "70%",borderRadius: "50%", boxShadow: "0 0 15px white" }}
     >
       <Geographies
         geography="/features.json"
-        fill="#D6D6DA"
-        stroke="#FFFFFF"
+        fill="#410e98af"
+        stroke="#d7d7d7"
         strokeWidth={0.5}
       >
         {({ geographies }) =>
@@ -30,17 +31,23 @@ const MapChart = () => {
         }
       </Geographies>
       <Annotation
-        subject={[2.3522, 48.8566]}
+        subject={[33.38044, 47.90966]}
         dx={-90}
-        dy={30}
+        dy={40}
         connectorProps={{
-          stroke: "#FF5533",
+          stroke: "#fefefe",
           strokeWidth: 3,
-          strokeLinecap: "round"
+          strokeLinecap: "round",
         }}
       >
-        <text x="-8" textAnchor="end" alignmentBaseline="middle" fill="#F53">
-          {"Kryviy Rih"}
+        <text
+          style={{ fontSize: "36px", textShadow: "0 0 10px black" }}
+          x="-8"
+          textAnchor="end"
+          alignmentBaseline="middle"
+          fill="#ffffff"
+        >
+          {`Ukraine, Kryviy Rih`}
         </text>
       </Annotation>
     </ComposableMap>
